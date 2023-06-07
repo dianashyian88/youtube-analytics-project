@@ -32,13 +32,16 @@ class Channel:
 
     @property
     def channel_id(self):
+        """Геттер для __channel_id"""
         return self.__channel_id
 
     @classmethod
     def get_service(cls):
+        """Возвращает объект для работы с YouTube API."""
         return cls.youtube
 
     def to_json(self, file_name):
+        """Сохраняет в файл значения атрибутов экземпляра `Channel`."""
         channel_info = {'channel_id': self.__channel_id,
                         'title': self.title,
                         'description': self.description,
