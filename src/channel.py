@@ -24,6 +24,38 @@ class Channel:
         self.video_count = self.channel['items'][0]['statistics']['videoCount']
         self.view_count = self.channel['items'][0]['statistics']['viewCount']
 
+    def __str__(self):
+        """Отображает информацию об объекте класса для пользователей"""
+        return f'{self.title} ({self.url})'
+
+    def __add__(self, other):
+        """Складывает количество подписчиков"""
+        return int(self.subscriber_count) + int(other.subscriber_count)
+
+    def __sub__(self, other):
+        """Находит разницу между количеством подписчиков"""
+        return int(self.subscriber_count) - int(other.subscriber_count)
+
+    def __lt__(self, other):
+        """Определяет поведение оператора меньше"""
+        return int(self.subscriber_count) < int(other.subscriber_count)
+
+    def __gt__(self, other):
+        """Определяет поведение оператора больше"""
+        return int(self.subscriber_count) > int(other.subscriber_count)
+
+    def __le__(self, other):
+        """Определяет поведение оператора меньше или равно"""
+        return int(self.subscriber_count) <= int(other.subscriber_count)
+
+    def __ge__(self, other):
+        """Определяет поведение оператора больше или равно"""
+        return int(self.subscriber_count) >= int(other.subscriber_count)
+
+    def __eq__(self, other):
+        """Определяет поведение оператора равенства"""
+        return int(self.subscriber_count) == int(other.subscriber_count)
+
     def print_info(self) -> None:
         """Выводит в консоль информацию о канале."""
         channel_id = self.__channel_id
