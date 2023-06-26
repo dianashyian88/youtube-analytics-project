@@ -7,12 +7,18 @@ class Video:
     def __init__(self, video_id):
         """Экземпляр инициализируется id видео. Дальше все данные будут подтягиваться по API."""
         self.video_id = video_id
-        self.video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
-                                                            id=self.video_id).execute()
-        self.video_title = self.video_response['items'][0]['snippet']['title']
-        self.view_count = self.video_response['items'][0]['statistics']['viewCount']
-        self.like_count = self.video_response['items'][0]['statistics']['likeCount']
-        self.url = 'https://www.youtube.com/watch?v=' + self.video_id
+        try:
+            self.video_response = Channel.youtube.videos().list(part='snippet,statistics,contentDetails,topicDetails',
+                                                                id=self.video_id).execute()
+            self.video_title = self.video_response['items'][0]['snippet']['title']
+            self.view_count = self.video_response['items'][0]['statistics']['viewCount']
+            self.like_count = self.video_response['items'][0]['statistics']['likeCount']
+            self.url = 'https://www.youtube.com/watch?v=' + self.video_id
+        except IndexError:
+            self.video_title = None
+            self.view_count = None
+            self.like_count = None
+            self.url = None
 
     def __str__(self):
         """Отображает информацию об объекте класса для пользователей"""
